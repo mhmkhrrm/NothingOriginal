@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paragraph Animation</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url('bg5.jpg') no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
+    }
+
+    .center-text {
+      color: rgb(5, 4, 4);
+      font-size: 1.5rem; /* smaller text */
+      text-align: center;
+      position: relative;
+      display: inline-block;
+      font-family: sans-serif;
+      letter-spacing: 0.1em;
+      line-height: 1.5em; /* space between lines */
+      max-width: 500px; /* wrap text to multiple lines */
+      word-spacing: 3px;
+    }
+
+    @keyframes sink {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+    .center-text span {
+      display: inline-block;
+      animation: sink 4s ease-in forwards;
+    }
+  </style>
+</head>
+<body>
+  <div class="center-text" id="animatedText">
+    Congratulations!<br>
+    We have reached redundancy.<br>
+    
+  </div>
+
+  <script>
+    const text = document.getElementById('animatedText');
+    const chars = [];
+
+    // Split text into characters including line breaks
+    text.childNodes.forEach(node => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        chars.push(...node.textContent.split(''));
+      } else if (node.nodeName === "BR") {
+        chars.push('\n'); // keep line breaks
+      }
+    });
+
+    text.textContent = '';
+
+    chars.forEach((char) => {
+      if (char === '\n') {
+        text.appendChild(document.createElement('br'));
+      } else {
+        const span = document.createElement('span');
+        span.textContent = char;
+        span.style.animationDelay = `${Math.random() * 3}s`;
+        text.appendChild(span);
+      }
+    });
+  </script>
+</body>
+</html>
+
+

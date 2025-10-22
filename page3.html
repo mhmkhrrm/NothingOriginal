@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3</title>
+  <link rel="stylesheet" href="Style.css" />
+</head>
+<body style="background-image: url('bg3.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; margin: 0; overflow: hidden;">
+  <h1 class="small-heading">3</h1>
+  
+  <div class="toolbar vertical-toolbar" id="toolbar">
+    <button id="toggleToolbar" class="toggle-btn">−</button>
+    <div class="toolbar-content">
+      <label>Color</label>
+      <input type="color" id="colorPicker" value="#000000" />
+
+      <label>Pen Size</label>
+      <input type="range" id="penSize" min="1" max="50" value="3" />
+
+      <label>Effect</label>
+      <button onclick="setEffect('normal')">Normal</button>
+      <button onclick="setEffect('dotted')">Dotted</button>
+      <button onclick="setEffect('calligraphy')">Calligraphy</button>
+      <button onclick="setEffect('spray')">Spray</button>
+      <button onclick="setEffect('highlighter')">Highlighter</button>
+      <button onclick="setEffect('glow')">Glow</button>
+      <button onclick="setEffect('rainbow')">Rainbow</button>
+      <button onclick="setEffect('pencil')">Pencil</button>
+
+      <label>Tools</label>
+      <button onclick="setTool('pen')">Pen</button>
+      <button onclick="setTool('eraser')">Eraser</button>
+      <button onclick="saveCanvas()">Save</button>
+    </div>
+  </div>
+
+  <canvas id="drawCanvas"></canvas>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

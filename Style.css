@@ -1,0 +1,341 @@
+/* ================= BODY & CANVAS ================= */
+body {
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: "Courier New", monospace;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10; /* ensure drawing is on top of the background but under the toolbar */
+  }
+  
+
+  
+
+/* ================= HOMEPAGE MENU ================= */
+.home-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 15px 0;
+    background: rgb(252, 251, 251);
+    z-index: 1000;
+    font-family: "Courier New", monospace;
+}
+
+.home-menu a {
+    text-decoration: none;
+    color: white;
+    font-size: 30px;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.home-menu a:hover {
+    color: #ffd700;
+    transform: scale(1.1);
+}
+
+/* ================= SMALL HEADING ================= */
+.small-heading {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: white;
+    font-size: 20px;
+    z-index: 1001;
+}
+.page-heading {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "Lucida Console", monospace;
+    font-size: 1rem;
+    color: #eef3ed; /* neon green */
+    text-shadow:
+      0 0 5px #14ffe0,
+      0 0 10px #eff3ee,
+      0 0 20px #d605fb;
+    text-align: center;
+    z-index: 1003; /* stays above the background and canvas */
+    pointer-events: none; /* lets you draw through it */
+  }
+  
+
+/* ================= VERTICAL TOOLBAR (PAGES 1–4) ================= */
+.vertical-toolbar {
+    position: fixed;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    gap: 8px;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.6); 
+    z-index: 1002;
+    width: 120px;
+    font-family: "Courier New", monospace;
+    transition: all 0.3s ease;
+}
+
+.vertical-toolbar label {
+    font-weight: bold;
+    font-size: 0.75rem;
+    color: #f6faf6; 
+    margin: 0;
+    text-align: center;
+}
+
+.vertical-toolbar button {
+    width: 100%;
+    padding: 4px 0;
+    border: 1px solid #f7faf7;
+    border-radius: 4px;
+    background: transparent;
+    color: #a9edf7;
+    cursor: pointer;
+    font-family: "Courier New", monospace;
+    font-size: 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.vertical-toolbar button:hover {
+    background: #eacdeb;
+    color: black;
+    transform: scale(1.05);
+}
+
+.vertical-toolbar input[type="range"] {
+    width: 100%;
+}
+
+.vertical-toolbar input[type="color"] {
+    width: 40px;
+    height: 25px;
+    border: none;
+    cursor: pointer;
+}
+
+/* ================= TOGGLE BUTTON ================= */
+.toggle-btn {
+    position: absolute;
+    top: -30px;
+    right: 70px;
+    transform: translateX(50%);
+    width: 25px;
+    height: 25px;
+    border: 1px solid #010f01;
+    border-radius: 2px;
+    background: transparent;
+    color: #f0f6f0;
+    font-family: "Courier New", monospace;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    transition: all 0.2s ease;
+    z-index: 1003;
+}
+
+.toggle-btn:hover {
+    background: #ebf4eb;
+    color: black;
+}
+
+.vertical-toolbar.collapsed {
+    width: 40px;
+    padding: 5px;
+    gap: 4px;
+}
+
+.vertical-toolbar.collapsed .toolbar-content {
+    display: none;
+}
+
+.vertical-toolbar.collapsed .toggle-btn {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+body.homepage {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: "Courier New", monospace;
+    color: white;
+}
+
+
+.homepage-container {
+    position: absolute;
+    top: 65%; 
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+}
+
+.homepage-container a {
+    color: #f8fbf8; 
+    text-decoration: none;
+    font-family: "Courier New", monospace;
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 3px 6px;
+    border: 1px solid #aee3ef;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.5); /* translucent retro button */
+    transition: all 0.2s ease;
+}
+
+
+.homepage-container a:hover {
+    color: black;
+    background: #edf2ed; 
+    transform: scale(1.05);
+}
+
+.home-center-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%; /* adjust width if needed */
+    text-align: center;
+    color: white;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    font-family: "Courier New", monospace;
+    z-index: 1001; /* above background but below toolbar */
+
+    /* translucent background */
+    background: rgba(0, 0, 0, 0.5); /* black with 50% opacity */
+    padding: 20px 30px; /* space around the text */
+    border-radius: 15px; /* optional rounded corners */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* optional soft shadow */
+
+    /* green neon border */
+    border: 1px solid #00ff00;
+    box-shadow: 0 0 5px #00ff00, 0 0 5px #00ff00, 0 0 5px #00ff00;
+}
+
+.homepage-title {
+    font-family: "Lucida Console", monospace; 
+    font-size: 1rem; 
+    color: #414241; 
+    text-shadow:
+        0 0 2px #09e7fb,
+        0 0 2px #06fafe,
+        0 0 2px #04f920,
+        0 0 2px #f3f8f2; 
+    margin: 0 0 5px 0; 
+    text-align: center;
+}
+.homepage-heading {
+    font-family: "Lucida Console", monospace;
+    font-size: 1rem;
+    color: #f8f7f8; /* neon green */
+    text-shadow:
+      0 0 5px #39ff14,
+      0 0 10px #f9f8f9;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-bottom: 15px; 
+  }
+  .homepage-footer {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Lucida Console", monospace;
+    font-size: 0.8rem;
+    color: #04ffe6; 
+    text-shadow:
+      0 0 5px #f1f4f1,
+      0 0 10px #0af219;
+    text-align: center;
+    opacity: 0.8; 
+    z-index: 1001;
+  }
+  
+.text-sink {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 20px;
+    z-index: 1001;
+}
+
+#sinkingText {
+    color: white;
+    font-size: 1.5px;
+    width: 50%;
+    text-align: center;
+    line-height: 1.6;
+    font-family: "Courier New", monospace;
+    word-spacing: 3px;
+}
+
+
+@keyframes floatDrift {
+    0%   { transform: translate(0, 0); opacity: 1; }
+    50%  { transform: translate(0, 30px); opacity: 0.8; }
+    100% { transform: translate(0, 0); opacity: 1; }
+}
+
+.float-letter {
+    display: inline-block;
+    position: relative;
+    color: white;
+    animation-name: floatDrift;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+.float-letter:nth-child(odd) {
+    animation-duration: 8s;
+    animation-delay: 2s;
+}
+
+.float-letter:nth-child(even) {
+    animation-duration: 10s;
+    animation-delay: 1s;
+}
+
+
+
