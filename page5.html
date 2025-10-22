@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Paragraph Animation</title>
+  <title>Paragraph Animation with Fireworks</title>
   <style>
     body {
       margin: 0;
@@ -14,19 +15,31 @@
       background: url('bg5.jpg') no-repeat center center fixed;
       background-size: cover;
       overflow: hidden;
+      position: relative;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0; /* keep fireworks behind text */
+      pointer-events: none; /* don’t block mouse clicks */
     }
 
     .center-text {
       color: rgb(5, 4, 4);
-      font-size: 1.5rem; /* smaller text */
+      font-size: 1.5rem;
       text-align: center;
       position: relative;
       display: inline-block;
       font-family: sans-serif;
       letter-spacing: 0.1em;
-      line-height: 1.5em; /* space between lines */
-      max-width: 500px; /* wrap text to multiple lines */
+      line-height: 1.5em;
+      max-width: 500px;
       word-spacing: 3px;
+      z-index: 1;
     }
 
     @keyframes sink {
@@ -47,27 +60,27 @@
   </style>
 </head>
 <body>
+  <canvas id="fireworks"></canvas>
+
   <div class="center-text" id="animatedText">
     Congratulations!<br>
     We have reached redundancy.<br>
-    
   </div>
 
   <script>
+    // === TEXT ANIMATION ===
     const text = document.getElementById('animatedText');
     const chars = [];
 
-    // Split text into characters including line breaks
     text.childNodes.forEach(node => {
       if (node.nodeType === Node.TEXT_NODE) {
         chars.push(...node.textContent.split(''));
       } else if (node.nodeName === "BR") {
-        chars.push('\n'); // keep line breaks
+        chars.push('\n');
       }
     });
 
     text.textContent = '';
-
     chars.forEach((char) => {
       if (char === '\n') {
         text.appendChild(document.createElement('br'));
@@ -78,8 +91,76 @@
         text.appendChild(span);
       }
     });
+
+    // === FIREWORKS ===
+    const canvas = document.getElementById('fireworks');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    class Particle {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.radius = Math.random() * 2 + 1;
+        this.angle = Math.random() * 2 * Math.PI;
+        this.speed = Math.random() * 6 + 2;
+        this.alpha = 1;
+        this.gravity = 0.05;
+      }
+
+      update() {
+        this.speed *= 0.98; // slow down slightly
+        this.x += Math.cos(this.angle) * this.speed;
+        this.y += Math.sin(this.angle) * this.speed + this.gravity;
+        this.alpha -= 0.02;
+      }
+
+      draw() {
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    const fireworks = [];
+
+    function spawnFirework() {
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * canvas.height / 2;
+      const color = `hsl(${Math.random() * 360}, 100%, 60%)`;
+      for (let i = 0; i < 50; i++) {
+        fireworks.push(new Particle(x, y, color));
+      }
+    }
+
+    function animate() {
+      // Remove black background fill — just clear particles
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      fireworks.forEach((p, i) => {
+        p.update();
+        p.draw();
+        if (p.alpha <= 0) fireworks.splice(i, 1);
+      });
+
+      if (Math.random() < 0.05) spawnFirework(); // random bursts
+      requestAnimationFrame(animate);
+    }
+
+    animate();
   </script>
 </body>
 </html>
+
 
 
